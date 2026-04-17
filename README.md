@@ -3,3 +3,7 @@
 Nama : Auryn Dinda Hanifa
 
 NIM : 1801624186
+
+Nama : Nesya Aulia Zahra 
+
+NIM : 1801624038
