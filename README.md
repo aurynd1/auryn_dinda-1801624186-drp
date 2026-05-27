@@ -1,7 +1,18 @@
 # auryn_dinda-1801624186-drp
+Ketua
 
-Repository tugas praktikum.
+Nama : Auryn Dinda Hanifa
 
-## Daftar Tugas
-- Tugas-06
-- Tugas-08
+NIM : 1801624186
+
+Anggota Pertama
+
+Nama : Nesya Aulia Zahra 
+
+NIM : 1801624038
+
+Anggota Kedua
+
+Nama : Cintia Nabila
+
+NIM : 1801624256
