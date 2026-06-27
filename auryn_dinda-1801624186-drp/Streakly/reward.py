@@ -9,10 +9,12 @@ cursor = conn.cursor()
 # CREATE
 # =========================
 def tambah_reward():
+
     nama = input("Nama Reward : ")
     deskripsi = input("Deskripsi : ")
-    poin = int(input("Poin Dibutuhkan : "))
+
     status = "aktif"
+    poin = 50
 
     cursor.execute("""
         INSERT INTO reward
@@ -21,6 +23,7 @@ def tambah_reward():
     """, (nama, deskripsi, status, poin))
 
     conn.commit()
+
     print("Reward berhasil ditambahkan.")
 
 
@@ -30,7 +33,7 @@ def tambah_reward():
 def lihat_reward():
 
     cursor.execute("""
-        SELECT rowid, nama_reward, deskripsi, status, poin_dibutuhkan
+        SELECT rowid, nama_reward, deskripsi, status
         FROM reward
     """)
 
@@ -38,13 +41,18 @@ def lihat_reward():
 
     print("\n===== DAFTAR REWARD =====")
 
+    if len(data) == 0:
+        print("Belum ada reward.")
+        return
+
     for d in data:
-        print(
-            f"ID: {d[0]} | "
-            f"Reward: {d[1]} | "
-            f"Poin: {d[4]} | "
-            f"Status: {d[3]}"
-        )
+
+        print(f"ID : {d[0]}")
+        print(f"Reward : {d[1]}")
+        print(f"Deskripsi : {d[2]}")
+        print("Poin Penukaran : 50 poin")
+        print(f"Status : {d[3]}")
+        print("------------------------")
 
 
 # =========================
@@ -52,12 +60,13 @@ def lihat_reward():
 # =========================
 def edit_reward():
 
+    lihat_reward()
+
     id_reward = int(input("Masukkan ID Reward : "))
 
     nama = input("Nama Reward Baru : ")
     deskripsi = input("Deskripsi Baru : ")
     status = input("Status (aktif/non aktif): ")
-    poin = int(input("Poin Dibutuhkan : "))
 
     cursor.execute("""
         UPDATE reward
@@ -65,9 +74,9 @@ def edit_reward():
             nama_reward=?,
             deskripsi=?,
             status=?,
-            poin_dibutuhkan=?
+            poin_dibutuhkan=50
         WHERE rowid=?
-    """, (nama, deskripsi, status, poin, id_reward))
+    """, (nama, deskripsi, status, id_reward))
 
     conn.commit()
 
@@ -78,6 +87,8 @@ def edit_reward():
 # DELETE
 # =========================
 def hapus_reward():
+
+    lihat_reward()
 
     id_reward = int(input("Masukkan ID Reward : "))
 
@@ -98,9 +109,6 @@ def tukar_reward():
 
     lihat_reward()
 
-    id_reward = int(input("\nPilih ID Reward : "))
-
-    # Ambil poin user
     cursor.execute("""
         SELECT jumlah_poin
         FROM point
@@ -114,11 +122,12 @@ def tukar_reward():
 
     jumlah_poin = hasil[0]
 
-    # Ambil reward yang dipilih
+    print(f"\nPoin Anda : {jumlah_poin}")
+
+    id_reward = int(input("\nPilih ID Reward : "))
+
     cursor.execute("""
-        SELECT
-            nama_reward,
-            poin_dibutuhkan
+        SELECT nama_reward
         FROM reward
         WHERE rowid=?
     """, (id_reward,))
@@ -130,11 +139,9 @@ def tukar_reward():
         return
 
     nama_reward = reward[0]
-    poin_reward = reward[1]
 
-    if jumlah_poin >= poin_reward:
+    if jumlah_poin >= 50:
 
-        # Simpan riwayat penukaran
         cursor.execute("""
             INSERT INTO penukaran_reward
             (reward, tanggal_penukaran, poin_digunakan)
@@ -142,21 +149,32 @@ def tukar_reward():
         """, (
             nama_reward,
             datetime.now().strftime("%Y-%m-%d"),
-            poin_reward
+            50
         ))
 
-        # Reset poin menjadi 0
         cursor.execute("""
             UPDATE point
-            SET jumlah_poin = 0
+            SET jumlah_poin = jumlah_poin - 50
         """)
 
         conn.commit()
 
-        print("\nReward berhasil ditukar!")
-        print("Poin Anda sekarang menjadi 0.")
+        cursor.execute("""
+            SELECT jumlah_poin
+            FROM point
+        """)
+
+        sisa_poin = cursor.fetchone()[0]
+
+        print("\n========================")
+        print("Reward berhasil ditukar!")
+        print(f"Reward : {nama_reward}")
+        print(f"Sisa Poin : {sisa_poin}")
+        print("========================")
 
     else:
-        print("\nPoin belum mencukupi.")
+
+        print("\nYah, poinmu belum mencukupi😔")
+        print("\nAyo kerjakan seluruh task yang ada untuk menambah poin!🤩")
         print(f"Poin Anda : {jumlah_poin}")
-        print(f"Dibutuhkan : {poin_reward}")
+        print("Minimal poin : 50 poin")

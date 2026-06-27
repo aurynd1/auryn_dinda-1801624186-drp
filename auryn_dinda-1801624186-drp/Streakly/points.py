@@ -3,8 +3,9 @@ import sqlite3
 conn = sqlite3.connect("streakly.db")
 cursor = conn.cursor()
 
-
-# Menambah 10 poin setiap task selesai
+# =========================
+# TAMBAH POIN
+# =========================
 def tambah_poin():
 
     cursor.execute("""
@@ -14,10 +15,12 @@ def tambah_poin():
 
     conn.commit()
 
-    print("Poin berhasil ditambahkan (+10).")
+    print("+10 poin berhasil ditambahkan.")
 
 
-# Melihat jumlah poin
+# =========================
+# LIHAT POIN
+# =========================
 def lihat_poin():
 
     cursor.execute("""
@@ -28,6 +31,7 @@ def lihat_poin():
     hasil = cursor.fetchone()
 
     if hasil:
-        print(f"Jumlah Poin : {hasil[0]}")
+        print(f"\nJumlah Poin : {hasil[0]}")
+
     else:
         print("Data poin belum tersedia.")
