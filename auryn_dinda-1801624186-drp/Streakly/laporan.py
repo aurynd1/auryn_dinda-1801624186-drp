@@ -52,7 +52,7 @@ def laporan_streakly():
     print(f"Task Selesai            : {task_selesai}")
     print(f"Task Belum Selesai      : {task_belum}")
     print(f"Persentase Penyelesaian : {persentase:.2f}%")
-        print("\n========== PROGRESS USER ==========")
+    print("\n========== PROGRESS USER ==========")
 
     # =========================
     # Total Reward
