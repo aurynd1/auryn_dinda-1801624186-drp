@@ -19,6 +19,7 @@ from streak import lihat_streak
 # Tugas 12
 from export_json import export_data
 from import_json import import_data
+from laporan import laporan_streakly
 
 while True:
 
@@ -32,8 +33,8 @@ while True:
     print("6. Lihat Poin")
     print("7. Lihat Streak")
     print("8. Export Data (JSON)")
-    print("9. Import Data (JSON)")
-    print("10. Keluar")
+    print("10. Laporan Streakly")
+    print("11. Keluar")
 
     pilihan = input("Pilih menu : ")
 
@@ -112,10 +113,8 @@ while True:
         import_data()
 
     elif pilihan == "10":
-
+        laporan_streakly()
+    
+    elif pilihan == "11":
         print("Terima kasih telah menggunakan Streakly.")
-        break
-
-    else:
-
-        print("Pilihan tidak tersedia.")
+    break
