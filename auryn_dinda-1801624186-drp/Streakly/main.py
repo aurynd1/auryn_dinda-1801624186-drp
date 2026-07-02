@@ -33,6 +33,7 @@ while True:
     print("6. Lihat Poin")
     print("7. Lihat Streak")
     print("8. Export Data (JSON)")
+    print("9. Import Data (JSON)")
     print("10. Laporan Streakly")
     print("11. Keluar")
 

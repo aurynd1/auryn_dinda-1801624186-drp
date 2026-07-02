@@ -81,3 +81,5 @@ def export_data():
         )
 
     print("\nData berhasil diexport ke backup_streakly.json")
+if __name__ == "__main__":
+    export_data()
