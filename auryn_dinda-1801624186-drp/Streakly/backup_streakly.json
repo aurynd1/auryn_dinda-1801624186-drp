@@ -1,0 +1,35 @@
+{
+    "task": [
+        [
+            2,
+            "tugas drp",
+            "Selesai",
+            "2026-07-02"
+        ],
+        [
+            3,
+            "membaca buku",
+            "Belum Selesai",
+            null
+        ],
+        [
+            4,
+            "",
+            "Belum Selesai",
+            null
+        ]
+    ],
+    "reward": [],
+    "point": [
+        [
+            20
+        ]
+    ],
+    "streak": [
+        [
+            1,
+            "2026-07-02"
+        ]
+    ],
+    "penukaran_reward": []
+}
