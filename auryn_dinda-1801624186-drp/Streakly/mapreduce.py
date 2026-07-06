@@ -117,6 +117,92 @@ def reduce_task(filtered_data):
 
 
 # =========================
+# MAP PHASE (REWARD)
+# =========================
+def map_reward(reward_data):
+
+    hasil_map = []
+
+    for reward in reward_data:
+
+        status = reward[3]
+
+        hasil_map.append((status, 1))
+
+    return hasil_map
+
+
+    # =========================
+# SHUFFLE PHASE (REWARD)
+# =========================
+def shuffle_reward(mapped_data):
+
+    hasil_shuffle = {}
+
+    for status, nilai in mapped_data:
+
+        if status not in hasil_shuffle:
+
+            hasil_shuffle[status] = []
+
+        hasil_shuffle[status].append(nilai)
+
+    return hasil_shuffle
+
+
+    # =========================
+# FILTER PHASE (REWARD)
+# =========================
+def filter_reward(shuffled_data):
+
+    hasil_filter = {}
+
+    for status, daftar in shuffled_data.items():
+
+        if len(daftar) > 0:
+
+            hasil_filter[status] = daftar
+
+    return hasil_filter
+
+
+    # =========================
+# REDUCE PHASE (REWARD)
+# =========================
+def reduce_reward(filtered_data):
+
+    hasil_reduce = {}
+
+    for status, daftar in filtered_data.items():
+
+        hasil_reduce[status] = sum(daftar)
+
+    return hasil_reduce
+
+
+    # =========================
+# MAP PHASE (POINT)
+# =========================
+def map_point(point_data):
+
+    hasil_map = []
+
+    for point in point_data:
+
+        hasil_map.append(point[0])
+
+    return hasil_map
+
+
+    # =========================
+# REDUCE PHASE (POINT)
+# =========================
+def reduce_point(mapped_data):
+
+    return sum(mapped_data)
+
+
+# =========================
 # MAIN PROGRAM
 # =========================
 def analisis_streakly():
@@ -161,11 +247,38 @@ def analisis_streakly():
     # =========================
     # BAGIAN ANGGOTA
     # =========================
-    print("\n[REWARD]")
-    print("Dikerjakan Nesya")
+ # =========================
+# REWARD
+# =========================
+hasil_map = map_reward(data["reward"])
 
-    print("\n[POINT]")
-    print("Dikerjakan Nesya")
+hasil_shuffle = shuffle_reward(hasil_map)
+
+hasil_filter = filter_reward(hasil_shuffle)
+
+hasil_reduce = reduce_reward(hasil_filter)
+
+print("\n[REWARD]")
+
+total_reward = sum(hasil_reduce.values())
+
+ditukar = hasil_reduce.get("Ditukar", 0)
+
+belum = hasil_reduce.get("Belum Ditukar", 0)
+
+print(f"Total Reward : {total_reward}")
+print(f"Reward Ditukar : {ditukar}")
+print(f"Reward Belum Ditukar : {belum}")
+
+# =========================
+# POINT
+# =========================
+hasil_point = reduce_point(
+    map_point(data["point"])
+)
+
+print("\n[POINT]")
+print(f"Total Poin : {hasil_point}")
 
     print("\n[STREAK]")
     print("Dikerjakan Cintia")
