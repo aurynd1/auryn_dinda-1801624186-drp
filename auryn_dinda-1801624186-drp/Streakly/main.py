@@ -24,13 +24,13 @@ while True:
 
     print("\n========== STREAKLY ==========")
     print("Selamat datang di Streakly! We are happy to assist you to reach your goals!")
-    print("1. Task 📋") 
-    print("2. Reward 🎁")
-    print("3. Point ⭐")
-    print("4. Streak 🔥")
-    print("5. Laporan")
-    print("6. Tools")
-    print("7. Keluar")
+    print("1. Task📋") 
+    print("2. Reward🎁")
+    print("3. Point⭐")
+    print("4. Streak🔥")
+    print("5. Laporan📈")
+    print("6. Tools🛠️")
+    print("7. Keluar🔚")
 
     pilihan = input("Pilih menu : ")
 
