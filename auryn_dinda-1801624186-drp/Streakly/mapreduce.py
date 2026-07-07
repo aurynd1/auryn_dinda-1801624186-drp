@@ -276,17 +276,117 @@ print(f"Reward Belum Ditukar : {belum}")
 hasil_point = reduce_point(
     map_point(data["point"])
 )
+# =========================
+# MAP PHASE (STREAK)
+# =========================
+def map_streak(streak_data):
 
+    hasil_map = []
+
+    for streak in streak_data:
+
+        jumlah_hari = streak[0]
+
+        hasil_map.append(jumlah_hari)
+
+    return hasil_map
+# =========================
+# REDUCE PHASE (STREAK)
+# =========================
+def reduce_streak(mapped_data):
+
+    return sum(mapped_data)
+# =========================
+# MAP PHASE (PENUKARAN REWARD)
+# =========================
+def map_penukaran(penukaran_data):
+
+    hasil_map = []
+
+    for data in penukaran_data:
+
+        reward = data[1]
+
+        hasil_map.append((reward, 1))
+
+    return hasil_map
+# =========================
+# SHUFFLE PHASE (PENUKARAN REWARD)
+# =========================
+def shuffle_penukaran(mapped_data):
+
+    hasil_shuffle = {}
+
+    for reward, nilai in mapped_data:
+
+        if reward not in hasil_shuffle:
+
+            hasil_shuffle[reward] = []
+
+        hasil_shuffle[reward].append(nilai)
+
+    return hasil_shuffle
+# =========================
+# FILTER PHASE (PENUKARAN REWARD)
+# =========================
+def filter_penukaran(shuffled_data):
+
+    hasil_filter = {}
+
+    for reward, daftar in shuffled_data.items():
+
+        if len(daftar) > 0:
+
+            hasil_filter[reward] = daftar
+
+    return hasil_filter
+# =========================
+# REDUCE PHASE (PENUKARAN REWARD)
+# =========================
+def reduce_penukaran(filtered_data):
+
+    hasil_reduce = {}
+
+    for reward, daftar in filtered_data.items():
+
+        hasil_reduce[reward] = sum(daftar)
+
+    return hasil_reduce
 print("\n[POINT]")
 print(f"Total Poin : {hasil_point}")
 
-    print("\n[STREAK]")
-    print("Dikerjakan Cintia")
+# =========================
+# STREAK
+# =========================
+hasil_streak = reduce_streak(
+    map_streak(data["streak"])
+)
 
-    print("\n[PENUKARAN REWARD]")
-    print("Dikerjakan Cintia")
+print("\n[STREAK]")
+print(f"Current Streak : {hasil_streak} Hari")
 
+# =========================
+# PENUKARAN REWARD
+# =========================
+hasil_map = map_penukaran(data["penukaran_reward"])
 
+hasil_shuffle = shuffle_penukaran(hasil_map)
+
+hasil_filter = filter_penukaran(hasil_shuffle)
+
+hasil_reduce = reduce_penukaran(hasil_filter)
+
+print("\n[PENUKARAN REWARD]")
+
+if len(hasil_reduce) == 0:
+
+    print("Belum ada reward yang ditukarkan.")
+
+else:
+
+    for reward, jumlah in hasil_reduce.items():
+
+        print(f"{reward} : {jumlah} kali")
 # =========================
 # RUN PROGRAM
 # =========================
